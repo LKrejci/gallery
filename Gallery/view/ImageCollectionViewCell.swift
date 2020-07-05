@@ -11,8 +11,18 @@ import UIKit
 class ImageCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imageView: UIImageView!
+    
+    static let identifier = "ImageCollectionViewCell"
 
     func setImage(_ image: UIImage) {
         self.imageView.image = image
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
+    static func nib() -> UINib {
+        return UINib(nibName: identifier, bundle: nil)
     }
 }

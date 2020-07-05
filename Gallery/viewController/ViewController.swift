@@ -12,29 +12,33 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var imageColletionView: UICollectionView!
     
-    let identifier = "ImageCollectionViewCell"
+//    var imageList = ([
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        let request = GalleryRequest()
+        
+        request.getCatImage()
+        
         configCollectioView()
         imageColletionView.reloadData()
     }
     
     func configCollectioView() {
-        imageColletionView.register(ImageCollectionViewCell.self, forCellWithReuseIdentifier: identifier)
+        imageColletionView.register(ImageCollectionViewCell.nib(), forCellWithReuseIdentifier: ImageCollectionViewCell.identifier)
     }
 }
 
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! ImageCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as! ImageCollectionViewCell
         
-        
+//        cell.setImage(imageList[indexPath.row])
         return cell
     }
 }
