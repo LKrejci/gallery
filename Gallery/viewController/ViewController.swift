@@ -9,20 +9,23 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     @IBOutlet weak var imageColletionView: UICollectionView!
     
-//    var imageList = ([
+    var listImage: [UIImage]? {
+        didSet {
+            imageColletionView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        let request = GalleryRequest()
-        
-        request.getCatImage()
-        
         configCollectioView()
-        imageColletionView.reloadData()
+        
+        let request = GalleryRequest()
+        request.getCatURLImages { images in
+            self.listImage = images
+        }
     }
     
     func configCollectioView() {
@@ -32,13 +35,18 @@ class ViewController: UIViewController {
 
 extension ViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return listImage?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: ImageCollectionViewCell.identifier, for: indexPath) as! ImageCollectionViewCell
         
-//        cell.setImage(imageList[indexPath.row])
+        guard listImage?.count ?? 0 > 1 else { return cell }
+        
+        if let image = listImage?[indexPath.row] {
+            cell.setImage(image)
+        }
+        
         return cell
     }
 }

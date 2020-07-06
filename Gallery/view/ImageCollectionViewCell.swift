@@ -13,7 +13,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     
     static let identifier = "ImageCollectionViewCell"
-
+    
     func setImage(_ image: UIImage) {
         self.imageView.image = image
     }
